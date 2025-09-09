@@ -3,6 +3,7 @@ import styles from "./Main.module.css";
 import Button from "../Button/Button";
 import { StoryLine } from "../StoryLine/StoryLine";
 import ProgressBar from "../ProgressBar/ProgressBar";
+import { useTonAddress, useTonConnectUI } from "@tonconnect/ui-react";
 
 const now = Date.now();
 
@@ -27,6 +28,16 @@ const points = [
   },
 ];
 export const Main: React.FC = () => {
+  const address = useTonAddress();
+  const [tonConnectUI] = useTonConnectUI();
+
+  const handleClick = () => {
+    if (!address) {
+      tonConnectUI.openModal();
+    } else {
+      // можно показать меню или скопировать адрес
+    }
+  };
   return (
     <div className={styles.container}>
       <div className={styles.glass}>
@@ -37,7 +48,11 @@ export const Main: React.FC = () => {
             <span>gg</span>
           </div>
           <span className={styles.name}>STUPED NFT</span>
-          <Button size="small">Connect wallet</Button>
+          <Button
+            size="small"
+            onClick={handleClick}>
+            {address || "Connect Wallet"}
+          </Button>
         </div>
         <StoryLine points={points} />
         <ProgressBar
