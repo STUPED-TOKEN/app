@@ -40,6 +40,11 @@
     font-family: "Inter";
 }
 
+.logo a{
+    text-decoration: none;
+    color: white;
+}
+
 .name{
     font-size: 64px;
     white-space: nowrap;
@@ -58,6 +63,12 @@
     margin-top: 52px;
 }
 
+
+.modal_buttons{
+    display: flex;
+    column-gap: 20px;
+    justify-content: center;
+}
 @media screen and (max-width: 640px) {
     .container{
         padding: 10px;

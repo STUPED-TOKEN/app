@@ -4,6 +4,8 @@ import Button from "../Button/Button";
 import { StoryLine } from "../StoryLine/StoryLine";
 import ProgressBar from "../ProgressBar/ProgressBar";
 import { useTonAddress, useTonConnectUI } from "@tonconnect/ui-react";
+import { useState } from "react";
+import { Modal } from "../Modal/Modal";
 
 const now = Date.now();
 
@@ -30,21 +32,61 @@ const points = [
 export const Main: React.FC = () => {
   const address = useTonAddress();
   const [tonConnectUI] = useTonConnectUI();
+  const [modalOpen, setModalOpen] = useState(false);
 
   const handleConnect = () => {
-    if (!address) tonConnectUI.openModal();
+    if (!address) {
+      return tonConnectUI.openModal();
+    }
+    return setModalOpen(true);
+  };
+
+  const closeModal = () => setModalOpen(false);
+
+  const disconnectWallet = () => {
+    tonConnectUI.disconnect();
+    closeModal();
   };
 
   const shortAddress = address ? `${address.slice(0, 4)}...${address.slice(-2)}` : "";
 
   return (
     <div className={styles.container}>
+      <Modal
+        title="DO YOU WISH TO DISCONNECT THE WALLET CONNECTION?"
+        isOpen={modalOpen}
+        onClose={closeModal}>
+        <div className={styles.modal_buttons}>
+          <Button
+            onClick={disconnectWallet}
+            size="small">
+            YES
+          </Button>
+          <Button
+            onClick={closeModal}
+            size="small">
+            NO
+          </Button>
+        </div>
+      </Modal>
       <div className={styles.glass}>
         <div className={styles.header}>
           <div className={styles.logo}>
-            <span>tg</span>
-            <span>x</span>
-            <span>gg</span>
+            <a
+              href="https://web.telegram.org/"
+              target="_blank">
+              tg
+            </a>
+            <a
+              href="https://x.com"
+              target="_blank">
+              x
+            </a>
+            <a
+              href="https://gg.com"
+              target="_blank">
+              gg
+            </a>
           </div>
           <span className={styles.name}>STUPED NFT</span>
           <Button
