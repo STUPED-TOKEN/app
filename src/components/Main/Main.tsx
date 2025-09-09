@@ -31,13 +31,12 @@ export const Main: React.FC = () => {
   const address = useTonAddress();
   const [tonConnectUI] = useTonConnectUI();
 
-  const handleClick = () => {
-    if (!address) {
-      tonConnectUI.openModal();
-    } else {
-      // можно показать меню или скопировать адрес
-    }
+  const handleConnect = () => {
+    if (!address) tonConnectUI.openModal();
   };
+
+  const shortAddress = address ? `${address.slice(0, 4)}...${address.slice(-2)}` : "";
+
   return (
     <div className={styles.container}>
       <div className={styles.glass}>
@@ -50,8 +49,8 @@ export const Main: React.FC = () => {
           <span className={styles.name}>STUPED NFT</span>
           <Button
             size="small"
-            onClick={handleClick}>
-            {address || "Connect Wallet"}
+            onClick={handleConnect}>
+            {shortAddress || "Connect Wallet"}
           </Button>
         </div>
         <StoryLine points={points} />
