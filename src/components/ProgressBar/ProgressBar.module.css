@@ -1,0 +1,52 @@
+.wrapper {
+  --height: 32px;
+  --radius: 9999px;
+  --track: #d7e0e6;
+  --fill: #0f2830;
+  --border: rgba(255, 255, 255, 0.9);
+
+  position: relative;
+  width: 100%;
+  height: var(--height);
+  border-radius: var(--radius);
+  background: var(--track);
+  box-shadow: inset 0 0 0 2px var(--border);
+  overflow: hidden; /* критично: скругление края «заливки» при маленьких значениях */
+}
+
+.fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: var(--progress, 0%);
+  min-width: 0%;
+  max-width: 100%;
+  background: var(--fill);
+  border-radius: inherit;
+  transition: width 240ms ease;
+}
+
+.label {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  font-size: calc(var(--height) * 0.6);
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: #5a8df7;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+  pointer-events: none;
+  user-select: none;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  border: 0;
+}

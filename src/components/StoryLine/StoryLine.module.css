@@ -1,0 +1,66 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+column-gap: 45px;
+}
+
+
+.card {
+  position: relative;
+  min-width: 280px;
+  padding: 1rem 1.25rem;
+  border-radius: 16px;
+  border: 1px solid transparent;
+  text-align: center;
+  user-select: none;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.time {
+  font-size: 64px;
+  line-height: 89px;
+}
+
+/* LIVE */
+.live {
+  color: #D9FF00;
+}
+
+/* UPCOMING */
+.upcoming {
+  color: white
+}
+
+/* ENDED */
+.ended {
+  position: relative;
+  color: white;
+}
+
+.redX {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+
+}
+
+@media screen and (max-width: 640px) {
+   .wrapper{
+    flex-direction: column;
+    row-gap: 30px;
+   }
+
+   .arrow{
+    transform: rotate(90deg);
+    width: 60px;
+   }
+    
+}
