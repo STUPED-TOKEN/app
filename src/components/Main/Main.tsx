@@ -6,6 +6,9 @@ import ProgressBar from "../ProgressBar/ProgressBar";
 import { useTonAddress, useTonConnectUI } from "@tonconnect/ui-react";
 import { useState } from "react";
 import { Modal } from "../Modal/Modal";
+import { Tg } from "../../assets/icons/Tg";
+import { X } from "../../assets/icons/X";
+import { Gg } from "../../assets/icons/Gg";
 
 const now = Date.now();
 
@@ -26,6 +29,12 @@ const points = [
     id: "r3",
     label: "Round #3",
     start: new Date(now + 2 * 60 * 60 * 1000),
+    durationMs: 60 * 60 * 1000,
+  },
+  {
+    id: "r3",
+    label: "Round #4",
+    start: new Date(now + 3 * 60 * 60 * 1000),
     durationMs: 60 * 60 * 1000,
   },
 ];
@@ -75,17 +84,17 @@ export const Main: React.FC = () => {
             <a
               href="https://web.telegram.org/"
               target="_blank">
-              tg
+              <Tg />
             </a>
             <a
               href="https://x.com"
               target="_blank">
-              x
+              <X />
             </a>
             <a
               href="https://gg.com"
               target="_blank">
-              gg
+              <Gg />
             </a>
           </div>
           <span className={styles.name}>STUPED NFT</span>
@@ -105,12 +114,30 @@ export const Main: React.FC = () => {
           className={styles.button}>
           MINT
         </Button>
-        <p className={styles.text}>
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
-          of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was
-          popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of
-          Lorem Ipsum.
-        </p>
+        <div className={styles.rounds}>
+          {points.map((point) => (
+            <div key={point.id}>
+              {point.label} - starts at {point.start.toLocaleTimeString()} for {point.durationMs / (60 * 1000)} minutes
+            </div>
+          ))}
+        </div>
+        <div className={styles.logo_bottom}>
+          <a
+            href="https://web.telegram.org/"
+            target="_blank">
+            <Tg />
+          </a>
+          <a
+            href="https://x.com"
+            target="_blank">
+            <X />
+          </a>
+          <a
+            href="https://gg.com"
+            target="_blank">
+            <Gg />
+          </a>
+        </div>
       </div>
     </div>
   );

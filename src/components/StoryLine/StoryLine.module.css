@@ -2,8 +2,9 @@
   display: flex;
   align-items: center;
   width: 100%;
-  justify-content: center;
-column-gap: 45px;
+  justify-content: space-between;
+  column-gap: 20px;
+  overflow-x: auto;
 }
 
 
@@ -21,6 +22,7 @@ column-gap: 45px;
   font-size: 32px;
   font-weight: 500;
   margin-bottom: 0.5rem;
+  white-space: nowrap;
 }
 
 .time {
@@ -54,13 +56,9 @@ column-gap: 45px;
 
 @media screen and (max-width: 640px) {
    .wrapper{
-    flex-direction: column;
-    row-gap: 30px;
+    max-width: 100%;
    }
 
-   .arrow{
-    transform: rotate(90deg);
-    width: 60px;
-   }
+   
     
 }

@@ -9,7 +9,7 @@
 .glass {
   display: flex;
   flex-direction: column;
-  max-width: 1650px;
+  width: 100%;
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(12px); 
   border-radius: 32px;
@@ -34,7 +34,7 @@
 .logo{
     display: flex;
     font-size: 32px;
-    flex-basis: 230px;
+    flex-basis: 312px;
     justify-content: space-between;
     font-weight: normal;
     font-family: "Inter";
@@ -48,7 +48,7 @@
 .name{
     font-size: 64px;
     white-space: nowrap;
-    margin: 0 15px;
+    margin: 0 30px;
 }
 
  
@@ -69,6 +69,42 @@
     column-gap: 20px;
     justify-content: center;
 }
+
+
+.rounds{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 45px;
+    flex-direction: column;
+    font-size: 24px;
+    row-gap: 8px
+    
+}
+
+.logo_bottom{
+    display: none;
+}
+
+@media screen and (max-width: 1000px) {
+    .logo{
+        display: none;
+    }
+
+    .logo_bottom{
+        display: flex;
+        font-size: 32px;
+        justify-content: space-between;
+        margin-top: 45px;padding: 0px 20px;
+        font-weight: normal;
+    }
+
+    .name{
+        font-size: 36px;
+    }
+}
+
 @media screen and (max-width: 640px) {
     .container{
         padding: 10px;
@@ -76,7 +112,7 @@
 
    .header{
     display: flex;
-    flex-direction: column;
+    
     margin-bottom: 40px;
    }
 
@@ -85,9 +121,14 @@
     font-size: 40px;
    }
 
-   .logo{
-    flex-basis: auto;
-    column-gap: 20px;
+   
+
+   .rounds{
+    font-size: 22px;
+   }
+
+   .name{
+    font-size: 24px;
    }
     
 }

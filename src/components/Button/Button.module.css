@@ -5,6 +5,7 @@
     cursor: pointer;
     width: fit-content;
     border-radius: 56px;
+    white-space: nowrap;
 }
 
 .button:hover{
@@ -14,21 +15,23 @@
 
 .small{
     padding: 13px 44px;
-    line-height: 45px;
     font-size: 32px;}
 
 .large{
     padding: 11px 110px;
-    line-height: 89px;
     font-size: 64px;
 }
 
 @media screen and (max-width: 640px) {
    .large{
     padding: 10px 30px;
-
-    font-size:35px;
+    font-size:32px;
     width: 100%;
+   }
+
+   .small{
+    font-size: 16px;
+    padding: 13px 40px;
    }
     
 }
