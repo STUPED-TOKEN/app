@@ -4,13 +4,11 @@ import { Address } from "@ton/core";
 import useTonClient from "./useTonClient";
 import { NftCollection } from "../contracts/nftCollection";
 import { useEffect, useState } from "react";
+import { sleep } from "../helpers";
 
 
 export default function useNftCollectionContract(address: Address) {
   const client = useTonClient();
-
-  const sleep = (time: number) =>
-    new Promise((resolve) => setTimeout(resolve, time));
 
   const [contractData, setContractData] = useState<null | {
     nextItemIndex: bigint,
