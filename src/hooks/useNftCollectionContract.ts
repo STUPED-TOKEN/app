@@ -14,7 +14,8 @@ export default function useNftCollectionContract(address: Address) {
     nextItemIndex: bigint,
     content: Cell,
     nftItemCode: Cell,
-  }>();
+  }>(null);
+  
 
   const nftCollectionContract = useAsyncInitialize(async () => {
     if (!client) return;
@@ -25,13 +26,14 @@ export default function useNftCollectionContract(address: Address) {
   useEffect(() => {
     async function getValue() {
       if (!nftCollectionContract) return;
-      setContractData(null);
+      
       const val = await nftCollectionContract.getCollectionData();
       setContractData({
         nextItemIndex: val.nextItemIndex,
         content: val.content,
         nftItemCode: val.nftItemCode,
       });
+      
       await sleep(5000);
       getValue();
     }
