@@ -1,6 +1,6 @@
 import useAsyncInitialize from "./useAsyncInitialize";
 import type { OpenedContract } from "@ton/core";
-import { Address, toNano } from "@ton/core";
+import { Address } from "@ton/core";
 import useTonConnect from "./useTonConnect";
 import useTonClient from "./useTonClient";
 import { Round } from "../contracts/round";
@@ -59,8 +59,8 @@ export default function useRoundContract(address: Address) {
   return {
     address: roundContract?.address.toString(),
     ...contractData,
-    sendPurchase: async (queryId: bigint, nextItemIndex: bigint, entryIndex: bigint) => {
-        return roundContract?.sendPurchase(sender, toNano("0.05"), queryId, nextItemIndex, entryIndex);
+    sendPurchase: async (price: bigint,queryId: bigint, nextItemIndex: bigint, entryIndex: bigint) => {
+        return roundContract?.sendPurchase(sender, price, queryId, nextItemIndex, entryIndex);
     },
   };
 }
