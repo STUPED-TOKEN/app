@@ -13,6 +13,19 @@
     transition: 0.3s;
 }
 
+.disabled{
+    background: #FFFFFF;
+    color: #D9FF00;
+    border: 5px solid #D9FF00;
+    cursor: not-allowed;
+}
+
+.disabled:hover{
+    background: #FFFFFF;
+    color: #D9FF00;
+    border: 5px solid #D9FF00;
+}
+
 .small{
     padding: 13px 44px;
     font-size: 32px;}
