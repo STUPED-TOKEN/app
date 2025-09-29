@@ -1,5 +1,5 @@
 import type {Contract, ContractProvider, Sender} from "@ton/core";
-import { Address, beginCell, Cell, SendMode, Dictionary } from '@ton/core';
+import { Address, beginCell, Cell, SendMode } from '@ton/core';
 
 
 export type RoundConfig = {
@@ -39,11 +39,7 @@ export class Round implements Contract {
         return new Round(address);
     }
 
-    async sendPurchase(provider: ContractProvider, via: Sender, value: bigint, queryId: bigint, index: bigint, entryIndex: bigint) {
-        const dictCell = import.meta.env.VITE_DICT_CELL;
-        const dict: Dictionary<bigint, Address> = dictCell.beginParse().loadDictDirect(Dictionary.Keys.BigUint(256), Dictionary.Values.Address());
-        const merkleProof = dict.generateMerkleProof([entryIndex]);
-        
+    async sendPurchase(provider: ContractProvider, via: Sender, value: bigint, queryId: bigint, merkleProof: Cell, index: bigint, entryIndex: bigint) {
         await provider.internal(via, {
             value,
             sendMode: SendMode.PAY_GAS_SEPARATELY,
