@@ -4,7 +4,7 @@ import { TonConnectUIProvider } from "@tonconnect/ui-react";
 
 function App() {
   return (
-    <TonConnectUIProvider manifestUrl={import.meta.env.VITE_TONCONNECT_MANIFEST_URL}>
+    <TonConnectUIProvider manifestUrl={"https://raw.githubusercontent.com/ton-community/tma-usdt-payments-demo/refs/heads/master/public/tonconnect-manifest.json"}>
       <Main />
     </TonConnectUIProvider>
   );

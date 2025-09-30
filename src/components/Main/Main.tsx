@@ -39,7 +39,7 @@ const points = [
     start: new Date(1759226400 * 1000),
     durationMs: 60 * 30 * 1000,
     address: Address.parse("kQDYxH-ZqFlbbioUk03wfquScU2uyUb-ObfjaDmTVwaxbVkA"),
-    dict: Cell.fromBase64(import.meta.env.VITE_DICT_CELL_1).beginParse().loadDictDirect(Dictionary.Keys.BigUint(256), Dictionary.Values.Address())
+    dict: Cell.fromBase64("te6cckEBAwEATgACA8/4AQIAQyAHzFJtT1rFTuHyfXzl94UQ59hHX/o20riTxdJbn/414xwAQyAA5z2iGqWMVqB8REOUoVyaGvXFvcX46LvgSmwHTfL5LHyxOK1K").beginParse().loadDictDirect(Dictionary.Keys.BigUint(256), Dictionary.Values.Address())
   },
   {
     id: "r2",
@@ -47,7 +47,7 @@ const points = [
     start: new Date(1759230000 * 1000),
     durationMs: 60 * 30 * 1000,
     address: Address.parse("kQBTB9YaxFkPexY3wQEj7z840FeIXOeJbseopVYI5qh0ma_L"),
-    dict: Cell.fromBase64(import.meta.env.VITE_DICT_CELL_2).beginParse().loadDictDirect(Dictionary.Keys.BigUint(256), Dictionary.Values.Address())
+    dict: Cell.fromBase64("te6cckEBAwEATgACA8/4AQIAQyADEtILwLCyawmdRYQsD56FNShlruWT6c0XSxTGKlHpT4wAQyAA5z2iGqWMVqB8REOUoVyaGvXFvcX46LvgSmwHTfL5LHy7XVVK").beginParse().loadDictDirect(Dictionary.Keys.BigUint(256), Dictionary.Values.Address())
   },
   {
     id: "r3",
@@ -55,7 +55,7 @@ const points = [
     start: new Date(1759231800 * 1000),
     durationMs: 60 * 30 * 1000,
     address: Address.parse("kQDMFjbSmM0Pukz2aQNNbJ-0h1_vqc2Wi6lOFqAVhskqmP5Z"),
-    dict: Cell.fromBase64(import.meta.env.VITE_DICT_CELL_1).beginParse().loadDictDirect(Dictionary.Keys.BigUint(256), Dictionary.Values.Address()),
+    dict: Cell.fromBase64("te6cckEBAwEATgACA8/4AQIAQyAHzFJtT1rFTuHyfXzl94UQ59hHX/o20riTxdJbn/414xwAQyAA5z2iGqWMVqB8REOUoVyaGvXFvcX46LvgSmwHTfL5LHyxOK1K").beginParse().loadDictDirect(Dictionary.Keys.BigUint(256), Dictionary.Values.Address()),
 
   },
   {
@@ -64,7 +64,7 @@ const points = [
     start: new Date(1759233600 * 1000),
     durationMs: 60 * 60 * 24 * 1000,
     address: Address.parse("kQBiQsN8FEciIYsviRSCP1542jSD-5_-F3vaiezW5PttfKtk"),
-    dict: Cell.fromBase64(import.meta.env.VITE_DICT_CELL_1).beginParse().loadDictDirect(Dictionary.Keys.BigUint(256), Dictionary.Values.Address()),
+    dict: Cell.fromBase64("te6cckEBAwEATgACA8/4AQIAQyADEtILwLCyawmdRYQsD56FNShlruWT6c0XSxTGKlHpT4wAQyAA5z2iGqWMVqB8REOUoVyaGvXFvcX46LvgSmwHTfL5LHy7XVVK").beginParse().loadDictDirect(Dictionary.Keys.BigUint(256), Dictionary.Values.Address()),
   },
 ];
 export const Main: React.FC = () => {
