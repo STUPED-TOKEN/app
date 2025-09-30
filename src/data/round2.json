@@ -1,6 +1,7 @@
 {
   "addresses": [
-    "0QC1-80PDNQcL6JfEgO5OtZ1ntFCaYoZstt6j4ad2XXErYjR"
+    "0:625a417816164d6133a8b08581f3d0a6a50cb5dcb27d39a2e96298c54a3d29f1",
+    "0:1ce7b44354b18ad40f888872942b93435eb8b7b8bf1d177c094d80e9be5f258f"
   ],
   "round": 2,
   "description": "Round 2 whitelist addresses"

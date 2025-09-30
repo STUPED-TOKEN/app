@@ -1,6 +1,6 @@
 import { Address, toNano } from "@ton/core";
 
-export const COLLECTION_ADDRESS = Address.parse('kQDUWS-IqWxydhfNZG_nTTkoMBi-dj_gWxsifWIDbrjezbB0');
+export const COLLECTION_ADDRESS = Address.parse('kQDb4gJRDeNrnlQwc_2xoMw8XHz7ZvaAjPAZDQvGKRhTOvwY');
 
 export const IS_TESTNET = true;
 
