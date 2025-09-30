@@ -126,7 +126,7 @@ export const Main: React.FC = () => {
     }
   }, [address, currentRoundNumber]);
 
-  const canMint = address && entryIndex !== -1;
+  const canMint = address && (entryIndex !== -1 || currentRoundNumber === 3 || currentRoundNumber === 4);
 
   const handleConnect = () => {
     if (!address) {
@@ -191,7 +191,7 @@ export const Main: React.FC = () => {
         </div>
         <StoryLine points={points} />
         <ProgressBar
-          value={nftCollectionContract.nextItemIndex ? Number(nftCollectionContract.nextItemIndex - 1n) : 0}
+          value={nftCollectionContract.nextItemIndex ? Number(nftCollectionContract.nextItemIndex) : 0}
           max={5555}
         />
         <Button
