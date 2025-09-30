@@ -15,10 +15,6 @@ import { Address, Cell, Dictionary, toNano } from "@ton/core";
 import useRoundContract from "../../hooks/useRoundContract";
 import { getAddressIndex } from "../../helpers";
 
-const now = Date.now();
-
-const ROUND1_START_DELAY = -1 * 60 * 1000; // Начинается 1 минуту назад для тестирования
-const ROUND_INTERVAL = 35 * 60 * 1000;
 
 function getActiveRoundIndex(rounds: Array<{start: Date, durationMs: number}>) {
   const currentTime = Date.now();
@@ -40,34 +36,34 @@ const points = [
   {
     id: "r1",
     label: "Round #1",
-    start: new Date(now + ROUND1_START_DELAY),
+    start: new Date(1759226400 * 1000),
     durationMs: 60 * 30 * 1000,
-    address: Address.parse("kQAlcCrkkjBp1BtN32uDEz0pxp0VzRaOv7eNkr3vads4890W"),
+    address: Address.parse("kQDYxH-ZqFlbbioUk03wfquScU2uyUb-ObfjaDmTVwaxbVkA"),
     dict: Cell.fromBase64(import.meta.env.VITE_DICT_CELL_1).beginParse().loadDictDirect(Dictionary.Keys.BigUint(256), Dictionary.Values.Address())
   },
   {
     id: "r2",
     label: "Round #2",
-    start: new Date(now + ROUND1_START_DELAY + ROUND_INTERVAL), // через 39 минут
+    start: new Date(1759230000 * 1000),
     durationMs: 60 * 30 * 1000,
-    address: Address.parse("kQAcTkyKjmGuyQn6x3TcrHDaqlwr_1t5K22hacDN19hYVB_X"),
+    address: Address.parse("kQBTB9YaxFkPexY3wQEj7z840FeIXOeJbseopVYI5qh0ma_L"),
     dict: Cell.fromBase64(import.meta.env.VITE_DICT_CELL_2).beginParse().loadDictDirect(Dictionary.Keys.BigUint(256), Dictionary.Values.Address())
   },
   {
     id: "r3",
     label: "Round #3",
-    start: new Date(now + ROUND1_START_DELAY + ROUND_INTERVAL * 2), // через 74 минуты
+    start: new Date(1759231800 * 1000),
     durationMs: 60 * 30 * 1000,
-    address: Address.parse("kQAoNQFb0IZ11x6K8Hg_a32pc_SmUs1Y_pLZILBe5N4-RNbV"),
+    address: Address.parse("kQDMFjbSmM0Pukz2aQNNbJ-0h1_vqc2Wi6lOFqAVhskqmP5Z"),
     dict: Cell.fromBase64(import.meta.env.VITE_DICT_CELL_1).beginParse().loadDictDirect(Dictionary.Keys.BigUint(256), Dictionary.Values.Address()),
 
   },
   {
     id: "r4",
     label: "Round #4",
-    start: new Date(now + ROUND1_START_DELAY + ROUND_INTERVAL * 3), // через 109 минут
+    start: new Date(1759233600 * 1000),
     durationMs: 60 * 60 * 24 * 1000,
-    address: Address.parse("kQBY7tcLwtnCPHrv8AfcBTFFoyETX2E7_m2k0l1gl1X_QOmC"),
+    address: Address.parse("kQBiQsN8FEciIYsviRSCP1542jSD-5_-F3vaiezW5PttfKtk"),
     dict: Cell.fromBase64(import.meta.env.VITE_DICT_CELL_1).beginParse().loadDictDirect(Dictionary.Keys.BigUint(256), Dictionary.Values.Address()),
   },
 ];
@@ -208,7 +204,7 @@ export const Main: React.FC = () => {
         <div className={styles.rounds}>
           {points.map((point) => (
             <div key={point.id}>
-              {point.label} - starts at {point.start.toLocaleTimeString()} for {
+              {point.label} - starts at {point.start.toLocaleTimeString('en-GB', { timeZone: 'UTC' })} GMT+0 for {
                 point.durationMs > 59 * 60 * 1000 
                   ? `${(point.durationMs / (60 * 60 * 1000))} hours`
                   : `${point.durationMs / (60 * 1000)} minutes`
