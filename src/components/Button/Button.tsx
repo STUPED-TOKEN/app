@@ -11,12 +11,14 @@ interface ButtonProps {
 }
 const Button: React.FC<ButtonProps> = (props) => {
   const { children, onClick, className, disabled } = props;
+
   const buttonClassname = clsx(className, styles.button, {
     [styles.small]: props.size === "small",
     [styles.medium]: props.size === "medium",
     [styles.large]: props.size === "large",
     [styles.disabled]: disabled,
   });
+
   return (
     <button
       onClick={disabled ? undefined : onClick}

@@ -2,6 +2,7 @@ import type React from "react";
 import styles from "./Main.module.css";
 import Button from "../Button/Button";
 import { StoryLine } from "../StoryLine/StoryLine";
+import type { EnrichedStoryPoint } from "../StoryLine/StoryLine";
 import ProgressBar from "../ProgressBar/ProgressBar";
 import { useTonAddress, useTonConnectUI } from "@tonconnect/ui-react";
 import { useState, useEffect } from "react";
@@ -14,21 +15,21 @@ import { COLLECTION_ADDRESS, FEE } from "../../consts";
 import { Address, Cell, Dictionary, toNano } from "@ton/core";
 import useRoundContract from "../../hooks/useRoundContract";
 import { getAddressIndex } from "../../helpers";
+import { Counter } from "../Counter/Counter";
 
-
-function getActiveRoundIndex(rounds: Array<{start: Date, durationMs: number}>) {
+function getActiveRoundIndex(rounds: Array<{ start: Date; durationMs: number }>) {
   const currentTime = Date.now();
-  
+
   for (let i = 0; i < rounds.length; i++) {
     const round = rounds[i];
     const start = round.start.getTime();
     const end = start + round.durationMs;
-    
+
     if (currentTime >= start && currentTime <= end) {
       return i;
     }
   }
-  
+
   return null;
 }
 
@@ -39,7 +40,9 @@ const points = [
     start: new Date(1759226400 * 1000),
     durationMs: 60 * 30 * 1000,
     address: Address.parse("kQDYxH-ZqFlbbioUk03wfquScU2uyUb-ObfjaDmTVwaxbVkA"),
-    dict: Cell.fromBase64("te6cckEBAwEATgACA8/4AQIAQyAHzFJtT1rFTuHyfXzl94UQ59hHX/o20riTxdJbn/414xwAQyAA5z2iGqWMVqB8REOUoVyaGvXFvcX46LvgSmwHTfL5LHyxOK1K").beginParse().loadDictDirect(Dictionary.Keys.BigUint(256), Dictionary.Values.Address())
+    dict: Cell.fromBase64("te6cckEBAwEATgACA8/4AQIAQyAHzFJtT1rFTuHyfXzl94UQ59hHX/o20riTxdJbn/414xwAQyAA5z2iGqWMVqB8REOUoVyaGvXFvcX46LvgSmwHTfL5LHyxOK1K")
+      .beginParse()
+      .loadDictDirect(Dictionary.Keys.BigUint(256), Dictionary.Values.Address()),
   },
   {
     id: "r2",
@@ -47,7 +50,9 @@ const points = [
     start: new Date(1759230000 * 1000),
     durationMs: 60 * 30 * 1000,
     address: Address.parse("kQBTB9YaxFkPexY3wQEj7z840FeIXOeJbseopVYI5qh0ma_L"),
-    dict: Cell.fromBase64("te6cckEBAwEATgACA8/4AQIAQyADEtILwLCyawmdRYQsD56FNShlruWT6c0XSxTGKlHpT4wAQyAA5z2iGqWMVqB8REOUoVyaGvXFvcX46LvgSmwHTfL5LHy7XVVK").beginParse().loadDictDirect(Dictionary.Keys.BigUint(256), Dictionary.Values.Address())
+    dict: Cell.fromBase64("te6cckEBAwEATgACA8/4AQIAQyADEtILwLCyawmdRYQsD56FNShlruWT6c0XSxTGKlHpT4wAQyAA5z2iGqWMVqB8REOUoVyaGvXFvcX46LvgSmwHTfL5LHy7XVVK")
+      .beginParse()
+      .loadDictDirect(Dictionary.Keys.BigUint(256), Dictionary.Values.Address()),
   },
   {
     id: "r3",
@@ -55,8 +60,9 @@ const points = [
     start: new Date(1759231800 * 1000),
     durationMs: 60 * 30 * 1000,
     address: Address.parse("kQDMFjbSmM0Pukz2aQNNbJ-0h1_vqc2Wi6lOFqAVhskqmP5Z"),
-    dict: Cell.fromBase64("te6cckEBAwEATgACA8/4AQIAQyAHzFJtT1rFTuHyfXzl94UQ59hHX/o20riTxdJbn/414xwAQyAA5z2iGqWMVqB8REOUoVyaGvXFvcX46LvgSmwHTfL5LHyxOK1K").beginParse().loadDictDirect(Dictionary.Keys.BigUint(256), Dictionary.Values.Address()),
-
+    dict: Cell.fromBase64("te6cckEBAwEATgACA8/4AQIAQyAHzFJtT1rFTuHyfXzl94UQ59hHX/o20riTxdJbn/414xwAQyAA5z2iGqWMVqB8REOUoVyaGvXFvcX46LvgSmwHTfL5LHyxOK1K")
+      .beginParse()
+      .loadDictDirect(Dictionary.Keys.BigUint(256), Dictionary.Values.Address()),
   },
   {
     id: "r4",
@@ -64,7 +70,9 @@ const points = [
     start: new Date(1759233600 * 1000),
     durationMs: 60 * 60 * 24 * 1000,
     address: Address.parse("kQBiQsN8FEciIYsviRSCP1542jSD-5_-F3vaiezW5PttfKtk"),
-    dict: Cell.fromBase64("te6cckEBAwEATgACA8/4AQIAQyADEtILwLCyawmdRYQsD56FNShlruWT6c0XSxTGKlHpT4wAQyAA5z2iGqWMVqB8REOUoVyaGvXFvcX46LvgSmwHTfL5LHy7XVVK").beginParse().loadDictDirect(Dictionary.Keys.BigUint(256), Dictionary.Values.Address()),
+    dict: Cell.fromBase64("te6cckEBAwEATgACA8/4AQIAQyADEtILwLCyawmdRYQsD56FNShlruWT6c0XSxTGKlHpT4wAQyAA5z2iGqWMVqB8REOUoVyaGvXFvcX46LvgSmwHTfL5LHy7XVVK")
+      .beginParse()
+      .loadDictDirect(Dictionary.Keys.BigUint(256), Dictionary.Values.Address()),
   },
 ];
 export const Main: React.FC = () => {
@@ -74,33 +82,33 @@ export const Main: React.FC = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [entryIndex, setEntryIndex] = useState<number | null>(null);
   const nftCollectionContract = useNftCollectionContract(COLLECTION_ADDRESS);
-  
+
   const activeRoundIndex = getActiveRoundIndex(points);
   const currentRoundNumber = activeRoundIndex !== null ? activeRoundIndex + 1 : 1;
   const currentRoundAddress = activeRoundIndex !== null ? points[activeRoundIndex].address : points[0].address;
-  
+
   const roundContract = useRoundContract(currentRoundAddress);
 
-  const handleMint = async () => {    
+  const handleMint = async () => {
     if (!rawAddress) {
       return;
     }
-    
+
     const entryIndex = getAddressIndex(rawAddress, currentRoundNumber);
     setEntryIndex(entryIndex);
-    
+
     if (activeRoundIndex === null) {
       return;
     }
-    
+
     if (nftCollectionContract.nextItemIndex === null || nftCollectionContract.nextItemIndex === undefined) {
       return;
     }
-    
+
     if (roundContract.price === null || roundContract.price === undefined) {
       return;
     }
-    
+
     if (entryIndex === -1) {
       return;
     }
@@ -113,9 +121,9 @@ export const Main: React.FC = () => {
       BigInt(entryIndex), // queryId
       merkleProof,
       nftCollectionContract.nextItemIndex,
-      BigInt(entryIndex),
+      BigInt(entryIndex)
     );
-  }
+  };
 
   useEffect(() => {
     if (address) {
@@ -127,6 +135,7 @@ export const Main: React.FC = () => {
   }, [address, currentRoundNumber]);
 
   const canMint = address && (entryIndex !== -1 || currentRoundNumber === 3 || currentRoundNumber === 4);
+  const [currentPoint, setCurrentPoint] = useState<EnrichedStoryPoint | null>(null);
 
   const handleConnect = () => {
     if (!address) {
@@ -189,26 +198,30 @@ export const Main: React.FC = () => {
             {shortAddress || "Connect Wallet"}
           </Button>
         </div>
-        <StoryLine points={points} />
+        <StoryLine
+          points={points}
+          setCurrentPoint={setCurrentPoint}
+        />
         <ProgressBar
           value={nftCollectionContract.nextItemIndex ? Number(nftCollectionContract.nextItemIndex) : 0}
           max={5555}
         />
-        <Button
-          size="large"
-          onClick={handleMint}
-          disabled={!canMint}
-          className={styles.button}>
-          MINT
-        </Button>
+
+        <div className={styles.button_group}>
+          <Counter size="large" />
+          <Button
+            size="large"
+            onClick={handleMint}
+            disabled={!canMint}
+            className={styles.mint}>
+            MINT
+          </Button>
+        </div>
         <div className={styles.rounds}>
           {points.map((point) => (
             <div key={point.id}>
-              {point.label} - starts at {point.start.toLocaleTimeString('en-GB', { timeZone: 'UTC' })} GMT+0 for {
-                point.durationMs > 59 * 60 * 1000 
-                  ? `${(point.durationMs / (60 * 60 * 1000))} hours`
-                  : `${point.durationMs / (60 * 1000)} minutes`
-              }
+              {point.label} - starts at {point.start.toLocaleTimeString("en-GB", { timeZone: "UTC" })} GMT+0 for{" "}
+              {point.durationMs > 59 * 60 * 1000 ? `${point.durationMs / (60 * 60 * 1000)} hours` : `${point.durationMs / (60 * 1000)} minutes`}
             </div>
           ))}
         </div>

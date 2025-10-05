@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Arrow } from "../../assets/icons/Arrow";
 import { RedX } from "../../assets/icons/RedX";
 import s from "./StoryLine.module.css";
@@ -16,7 +16,18 @@ export type StoryPoint = {
 type StoryLineProps = {
   points: StoryPoint[];
   className?: string;
+  setCurrentPoint?: React.Dispatch<React.SetStateAction<EnrichedStoryPoint | null>>;
 };
+
+export interface EnrichedStoryPoint {
+  start: number;
+  end: number;
+  status: Status;
+  timer: string;
+  id: string;
+  label: string;
+  durationMs?: number;
+}
 
 type Status = "End" | "Live" | "Start in";
 
@@ -45,7 +56,7 @@ function useNow(tickMs = 1000) {
   return now;
 }
 
-export const StoryLine: React.FC<StoryLineProps> = ({ points, className }) => {
+export const StoryLine: React.FC<StoryLineProps> = ({ points, className, setCurrentPoint }) => {
   const now = useNow(1000);
 
   const enriched = points.map((p) => {
@@ -55,10 +66,36 @@ export const StoryLine: React.FC<StoryLineProps> = ({ points, className }) => {
     return { ...p, start, end, status, timer: formatHMS(ms) };
   });
 
+  useEffect(() => {
+    const index = enriched.findIndex((p) => p.status === "Live");
+    const current = enriched[index];
+    const storyLine = document.getElementById("storyline");
+    const currentPoint = current ? document.getElementById(`point-${current.id}`) : null;
+
+    if (storyLine && currentPoint) {
+      const offset = currentPoint.offsetLeft + currentPoint.offsetWidth / 2 - storyLine.offsetWidth / 2;
+
+      storyLine.scrollTo({
+        left: offset,
+        behavior: "smooth",
+      });
+    }
+  }, []);
+  React.useEffect(() => {
+    const current = enriched.find((p) => p.status === "Live");
+
+    if (setCurrentPoint) {
+      setCurrentPoint(current ?? null);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [now]);
+
   return (
-    <div className={`${s.wrapper} ${className ?? ""}`}>
+    <div
+      className={`${s.wrapper} ${className ?? ""}`}
+      id="storyline">
       {enriched.map((p, i) => (
-        <React.Fragment key={p.id}>
+        <React.Fragment key={i}>
           <PointCard point={p} />
           {i < enriched.length - 1 && <Arrow className={s.arrow} />}
         </React.Fragment>
@@ -78,7 +115,9 @@ const PointCard: React.FC<{ point: PointCardData }> = ({ point }) => {
   const statusClass = point.status === "Live" ? s.live : point.status === "Start in" ? s.upcoming : s.ended;
 
   return (
-    <div className={`${s.card} ${statusClass}`}>
+    <div
+      className={`${s.card} ${statusClass}`}
+      id={`point-${point.id}`}>
       {point.status == "End" && <RedX className={s.redX} />}
       <div className={s.title}>
         {point.label} - {point.status}
