@@ -6,16 +6,21 @@ import { useState } from "react";
 interface CounterProps {
   className?: string;
   size?: "small" | "medium" | "large";
+  onCountChange?: (count: number) => void;
 }
 export const Counter: React.FC<CounterProps> = (props) => {
   const [count, setCount] = useState(0);
 
   const handlePlusClick = () => {
-    setCount((prev) => prev + 1);
+    const newCount = count + 1;
+    setCount(newCount);
+    props.onCountChange?.(newCount);
   };
 
   const handleMinusClick = () => {
-    setCount((prev) => (prev - 1 < 0 ? 0 : prev - 1));
+    const newCount = count - 1 < 0 ? 0 : count - 1;
+    setCount(newCount);
+    props.onCountChange?.(newCount);
   };
 
   const { className } = props;

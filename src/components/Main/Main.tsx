@@ -65,6 +65,7 @@ export const Main: React.FC = () => {
   const [tonConnectUI] = useTonConnectUI();
   const [modalOpen, setModalOpen] = useState(false);
   const [entryIndex, setEntryIndex] = useState<number | null>(null);
+  const [counterValue, setCounterValue] = useState(0);
   const nftCollectionContract = useNftCollectionContract(COLLECTION_ADDRESS);
   const [currentPoint, setCurrentPoint] = useState<EnrichedStoryPoint | null>(null);
   const currentRoundNumber = points.findIndex((point) => point.id === currentPoint?.id);
@@ -103,7 +104,8 @@ export const Main: React.FC = () => {
       BigInt(entryIndex), // queryId
       merkleProof,
       nftCollectionContract.nextItemIndex,
-      BigInt(entryIndex)
+      BigInt(entryIndex),
+      BigInt(counterValue)
     );
   };
 
@@ -189,7 +191,10 @@ export const Main: React.FC = () => {
         />
 
         <div className={styles.button_group}>
-          <Counter size="large" />
+          <Counter 
+            size="large" 
+            onCountChange={setCounterValue}
+          />
           <Button
             size="large"
             onClick={handleMint}
