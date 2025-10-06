@@ -17,22 +17,6 @@ import useRoundContract from "../../hooks/useRoundContract";
 import { getAddressIndex } from "../../helpers";
 import { Counter } from "../Counter/Counter";
 
-function getActiveRoundIndex(rounds: Array<{ start: Date; durationMs: number }>) {
-  const currentTime = Date.now();
-
-  for (let i = 0; i < rounds.length; i++) {
-    const round = rounds[i];
-    const start = round.start.getTime();
-    const end = start + round.durationMs;
-
-    if (currentTime >= start && currentTime <= end) {
-      return i;
-    }
-  }
-
-  return null;
-}
-
 const points = [
   {
     id: "r1",
@@ -82,13 +66,9 @@ export const Main: React.FC = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [entryIndex, setEntryIndex] = useState<number | null>(null);
   const nftCollectionContract = useNftCollectionContract(COLLECTION_ADDRESS);
-
-  const activeRoundIndex = getActiveRoundIndex(points);
-  const currentRoundNumber = activeRoundIndex !== null ? activeRoundIndex + 1 : 1;
-  const currentRoundAddress = activeRoundIndex !== null ? points[activeRoundIndex].address : points[0].address;
-
-  const roundContract = useRoundContract(currentRoundAddress);
-
+  const [currentPoint, setCurrentPoint] = useState<EnrichedStoryPoint | null>(null);
+  const currentRoundNumber = points.findIndex((point) => point.id === currentPoint?.id);
+  
   const handleMint = async () => {
     if (!rawAddress) {
       return;
@@ -97,9 +77,11 @@ export const Main: React.FC = () => {
     const entryIndex = getAddressIndex(rawAddress, currentRoundNumber);
     setEntryIndex(entryIndex);
 
-    if (activeRoundIndex === null) {
+    if (currentPoint === null) {
       return;
     }
+
+    const roundContract = useRoundContract(currentPoint?.address);
 
     if (nftCollectionContract.nextItemIndex === null || nftCollectionContract.nextItemIndex === undefined) {
       return;
@@ -113,7 +95,7 @@ export const Main: React.FC = () => {
       return;
     }
 
-    const dict = points[activeRoundIndex].dict;
+    const dict = currentPoint?.dict;
     const merkleProof = dict.generateMerkleProof([BigInt(entryIndex)]);
 
     await roundContract.sendPurchase(
@@ -135,7 +117,6 @@ export const Main: React.FC = () => {
   }, [address, currentRoundNumber]);
 
   const canMint = address && (entryIndex !== -1 || currentRoundNumber === 3 || currentRoundNumber === 4);
-  const [currentPoint, setCurrentPoint] = useState<EnrichedStoryPoint | null>(null);
 
   const handleConnect = () => {
     if (!address) {

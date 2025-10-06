@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Arrow } from "../../assets/icons/Arrow";
 import { RedX } from "../../assets/icons/RedX";
 import s from "./StoryLine.module.css";
+import type { Address, Dictionary } from "@ton/core";
 
 type ISOish = string | Date;
 
@@ -10,6 +11,8 @@ export type StoryPoint = {
   label: string;
   start: ISOish;
   end?: ISOish;
+  dict: Dictionary<bigint, Address>;
+  address: Address;
   durationMs?: number;
 };
 
@@ -26,6 +29,8 @@ export interface EnrichedStoryPoint {
   timer: string;
   id: string;
   label: string;
+  dict: Dictionary<bigint, Address>;
+  address: Address;
   durationMs?: number;
 }
 
