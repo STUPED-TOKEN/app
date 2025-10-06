@@ -15,16 +15,14 @@
 }
 
 .disabled{
-    background: #FFFFFF;
-    color: #D9FF00;
-    border: 5px solid #D9FF00;
+    background: #ACACAC;
+    color: #ffffff;
     cursor: not-allowed;
 }
 
 .disabled:hover{
-    background: #FFFFFF;
-    color: #D9FF00;
-    border: 5px solid #D9FF00;
+    background: #ACACAC;
+    color: #ffffff;
 }
 
 .small{
