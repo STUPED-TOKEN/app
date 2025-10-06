@@ -39,7 +39,16 @@ export class Round implements Contract {
         return new Round(address);
     }
 
-    async sendPurchase(provider: ContractProvider, via: Sender, value: bigint, queryId: bigint, merkleProof: Cell, index: bigint, entryIndex: bigint) {
+    async sendPurchase(
+        provider: ContractProvider, 
+        via: Sender, 
+        value: bigint, 
+        queryId: bigint, 
+        merkleProof: Cell, 
+        index: bigint, 
+        entryIndex: bigint,
+        quantity: bigint
+    ) {
         await provider.internal(via, {
             value,
             sendMode: SendMode.PAY_GAS_SEPARATELY,
@@ -49,6 +58,7 @@ export class Round implements Contract {
                 .storeRef(merkleProof)
                 .storeUint(index, 32)
                 .storeUint(entryIndex, 256)
+                .storeUint(quantity, 16)
                 .endCell(),
         });
     }

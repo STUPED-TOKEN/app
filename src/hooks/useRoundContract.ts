@@ -59,8 +59,8 @@ export default function useRoundContract(address: Address) {
   return {
     address: roundContract?.address.toString(),
     ...contractData,
-    sendPurchase: async (price: bigint,queryId: bigint, merkleProof: Cell, nextItemIndex: bigint, entryIndex: bigint) => {
-        return roundContract?.sendPurchase(sender, price, queryId, merkleProof, nextItemIndex, entryIndex);
+    sendPurchase: async (price: bigint,queryId: bigint, merkleProof: Cell, nextItemIndex: bigint, entryIndex: bigint, quantity: bigint) => {
+        return roundContract?.sendPurchase(sender, price, queryId, merkleProof, nextItemIndex, entryIndex, quantity);
     },
   };
 }
