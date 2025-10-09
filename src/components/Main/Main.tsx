@@ -113,7 +113,7 @@ export const Main: React.FC = () => {
 
   useEffect(() => {
     if (address) {
-      const entryIndex = getAddressIndex(rawAddress, currentRoundNumber);
+      const entryIndex = getAddressIndex(rawAddress, currentRoundNumber-1);
       setEntryIndex(entryIndex);
     } else {
       setEntryIndex(null);
@@ -123,8 +123,8 @@ export const Main: React.FC = () => {
   // currentRoundNumber - это индекс массива (0-3), а не номер раунда (1-4)
   // Round #1 (index 0) и Round #2 (index 1) требуют whitelist (entryIndex !== -1)
   // Round #3 (index 2) и Round #4 (index 3) публичные (доступны всем)
-  const canMint = address && (entryIndex !== -1 || currentRoundNumber === 2 || currentRoundNumber === 3);
-  console.log(address, currentRoundNumber, entryIndex, canMint);
+  const canMint = rawAddress && (entryIndex !== -1 || currentRoundNumber === 2 || currentRoundNumber === 3);
+  console.log(rawAddress, currentRoundNumber, entryIndex, canMint);
 
   const handleConnect = () => {
     if (!address) {
