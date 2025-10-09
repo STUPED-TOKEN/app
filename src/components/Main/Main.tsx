@@ -21,9 +21,9 @@ const points = [
   {
     id: "r1",
     label: "Round #1",
-    start: new Date(1759226400 * 1000),
+    start: new Date(1760004000 * 1000),
     durationMs: 60 * 30 * 1000,
-    address: Address.parse("kQDYxH-ZqFlbbioUk03wfquScU2uyUb-ObfjaDmTVwaxbVkA"),
+    address: Address.parse("kQBywi4e6gISQ9fm-pCPUa31oYwreD9-zdO2Qb7PZYjmQoi8"),
     dict: Cell.fromBase64("te6cckEBAwEATgACA8/4AQIAQyAHzFJtT1rFTuHyfXzl94UQ59hHX/o20riTxdJbn/414xwAQyAA5z2iGqWMVqB8REOUoVyaGvXFvcX46LvgSmwHTfL5LHyxOK1K")
       .beginParse()
       .loadDictDirect(Dictionary.Keys.BigUint(256), Dictionary.Values.Address()),
@@ -31,19 +31,19 @@ const points = [
   {
     id: "r2",
     label: "Round #2",
-    start: new Date(1759230000 * 1000),
+    start: new Date(1760005800 * 1000),
     durationMs: 60 * 30 * 1000,
-    address: Address.parse("kQBTB9YaxFkPexY3wQEj7z840FeIXOeJbseopVYI5qh0ma_L"),
-    dict: Cell.fromBase64("te6cckEBAwEATgACA8/4AQIAQyADEtILwLCyawmdRYQsD56FNShlruWT6c0XSxTGKlHpT4wAQyAA5z2iGqWMVqB8REOUoVyaGvXFvcX46LvgSmwHTfL5LHy7XVVK")
+    address: Address.parse("kQCyla34KhrJZSyID6fTshEsFhKFwIdqplfHjKHlO2poB7FX"),
+    dict: Cell.fromBase64("te6cckEBAwEATgACA8/4AQIAQyAA5z2iGqWMVqB8REOUoVyaGvXFvcX46LvgSmwHTfL5LHwAQyADEtILwLCyawmdRYQsD56FNShlruWT6c0XSxTGKlHpT4xfhbQ9")
       .beginParse()
       .loadDictDirect(Dictionary.Keys.BigUint(256), Dictionary.Values.Address()),
   },
   {
     id: "r3",
     label: "Round #3",
-    start: new Date(1759231800 * 1000),
+    start: new Date(1760007600 * 1000),
     durationMs: 60 * 30 * 1000,
-    address: Address.parse("kQDMFjbSmM0Pukz2aQNNbJ-0h1_vqc2Wi6lOFqAVhskqmP5Z"),
+    address: Address.parse("kQCbUAJPvD2QwuEWurzzA_x2Ba3iFD9L6GicCCjEVM6O3dyc"),
     dict: Cell.fromBase64("te6cckEBAwEATgACA8/4AQIAQyAHzFJtT1rFTuHyfXzl94UQ59hHX/o20riTxdJbn/414xwAQyAA5z2iGqWMVqB8REOUoVyaGvXFvcX46LvgSmwHTfL5LHyxOK1K")
       .beginParse()
       .loadDictDirect(Dictionary.Keys.BigUint(256), Dictionary.Values.Address()),
@@ -51,10 +51,10 @@ const points = [
   {
     id: "r4",
     label: "Round #4",
-    start: new Date(1759233600 * 1000),
+    start: new Date(1760009400 * 1000),
     durationMs: 60 * 60 * 24 * 1000,
-    address: Address.parse("kQBiQsN8FEciIYsviRSCP1542jSD-5_-F3vaiezW5PttfKtk"),
-    dict: Cell.fromBase64("te6cckEBAwEATgACA8/4AQIAQyADEtILwLCyawmdRYQsD56FNShlruWT6c0XSxTGKlHpT4wAQyAA5z2iGqWMVqB8REOUoVyaGvXFvcX46LvgSmwHTfL5LHy7XVVK")
+    address: Address.parse("kQBTYsftO_45EjLTzIq6i6fRezBf2_qLgrygIGWwe6hHtd3v"),
+    dict: Cell.fromBase64("te6cckEBAwEATgACA8/4AQIAQyAA5z2iGqWMVqB8REOUoVyaGvXFvcX46LvgSmwHTfL5LHwAQyADEtILwLCyawmdRYQsD56FNShlruWT6c0XSxTGKlHpT4xfhbQ9")
       .beginParse()
       .loadDictDirect(Dictionary.Keys.BigUint(256), Dictionary.Values.Address()),
   },
@@ -99,13 +99,15 @@ export const Main: React.FC = () => {
     const dict = currentPoint?.dict;
     const merkleProof = dict.generateMerkleProof([BigInt(entryIndex)]);
 
+    let quantity = BigInt(counterValue);
+
     await roundContract.sendPurchase(
-      toNano(roundContract.price) + FEE,
+      (toNano(roundContract.price) + FEE) * quantity,
       BigInt(entryIndex), // queryId
       merkleProof,
       nftCollectionContract.nextItemIndex,
       BigInt(entryIndex),
-      BigInt(counterValue)
+      quantity
     );
   };
 
